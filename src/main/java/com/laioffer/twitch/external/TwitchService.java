@@ -5,10 +5,10 @@ import com.laioffer.twitch.external.model.Clip;
 import com.laioffer.twitch.external.model.Game;
 import com.laioffer.twitch.external.model.Stream;
 import com.laioffer.twitch.external.model.Video;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,13 +25,13 @@ public class TwitchService {
     }
 
 
+    @Cacheable("top_games")
     public List<Game> getTopGames() {
         return twitchApiClient.getTopGames().data();
     }
 
 
-
-
+    @Cacheable("games_by_name")
     public List<Game> getGames(String name) {
         return twitchApiClient.getGames(name).data();
     }
